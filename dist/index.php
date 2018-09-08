@@ -11,7 +11,7 @@
 	} else {
 		$environment = 'development';
 	}
-	$rawDependencies = file_get_contents("http://static.$domain/dependencies.json");
+	$rawDependencies = file_get_contents("dependencies.json");
 	$dependencies = json_decode($rawDependencies, true);
 	$js_files = $dependencies[$environment]["js"];
 	$css_files = $dependencies[$environment]["css"]["layout"];
