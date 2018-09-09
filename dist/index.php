@@ -4,17 +4,11 @@
 
 	// Get the domain
 	$domain = $_SERVER['SERVER_NAME'];
-
-	//Get dependencies
 	if ($domain === 'kitepaint.com') {
 		$environment = 'production';
 	} else {
 		$environment = 'development';
 	}
-	$rawDependencies = file_get_contents("dependencies.json");
-	$dependencies = json_decode($rawDependencies, true);
-	$js_files = $dependencies[$environment]["js"];
-	$css_files = $dependencies[$environment]["css"]["layout"];
 ?>
 <!DOCTYPE html>
 <html ng-app="kitePaint">
@@ -48,7 +42,6 @@
 			<?php endif;?>
 
 			<script type="text/javascript">
-				var dependencies = <?php echo $rawDependencies ?>;
 				var environment = '<?php echo $environment ?>';
 			</script>
 
@@ -67,31 +60,25 @@
 			<?php endif;?>
 
 		<!-- JavaScript Files -->
-			<?php foreach($js_files as $file):?>
-				<script type="text/javascript" src="//static.<?php echo $domain ?>/js/<?php echo $file ?>"></script>
-			<?php endforeach;?>
+		<script type="text/javascript" src="//static.<?php echo $domain ?>/app.js"></script>
 
 		<!-- StyleSheets -->
-			<?php foreach($css_files['main'] as $file):?>
-				<link rel="stylesheet" href="//static.<?php echo $domain ?>/css/<?php echo $file ?>" />
-			<?php endforeach;?>
+		<link rel="stylesheet" href="//static.<?php echo $domain ?>/app.css" />
 
-			<?php if(!isset($_COOKIE['desktop'])):
-				foreach($css_files['responsive'] as $file): ?>
-					<link rel="stylesheet" href="//static.<?php echo $domain ?>/css/<?php echo $file ?>" />
-				<?php endforeach;
-			endif; ?>
-
-			<?php if ($embed) :
-				foreach($css_files['embed'] as $css):?>
-					<link rel="stylesheet" href="//static.<?php echo $domain ?>/css/<?php echo $css ?>" />
-				<?php endforeach;?>
+			<?php if ($embed) :?>
 				<script type="text/javascript">
 					var embed = true;
 				</script>
 			<?php endif;?>
 	</head>
-	<body id="body" ng-controller="PrimaryController">
+	<body id="body" class="<?php
+		if (!isset($_COOKIE['desktop'])):
+			echo "is-responsive ";
+		endif;
+		if ($embed) :
+			echo "is-embed ";
+		endif;
+	?>" ng-controller="PrimaryController">
 
 		<noscript>
 			<div>
