@@ -24,7 +24,7 @@
 		<?php if ($environment === 'development'):?>
 			<meta name="robots" content="noindex">
 		<?php endif;?>
-		<link rel="shortcut icon" href="img/favicon.ico" />
+		<link rel="shortcut icon" href="//static.<?php echo $domain ?>/img/favicon.ico" />
 
 		<!-- Scripts -->
 			<?php if ($embed) :?>
