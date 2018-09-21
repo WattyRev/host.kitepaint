@@ -2,10 +2,14 @@ language: node_js
 node_js:
   - "7"
 stages:
+  - name: deploy-prod
+    if: (NOT type IN (pull_request)) AND (branch = master)
   - name: deploy-beta
-    if: branch = master
+    if: (NOT type IN (pull_request)) AND (branch = staging)
 jobs:
   include:
+    - stage: deploy-prod
+      script: npm run deploy-prod -- --ftp-username=${FTP_USER} --ftp-pass=${FTP_PASS}
     - stage: deploy-beta
       script: npm run deploy-beta -- --ftp-username=${FTP_USER} --ftp-pass=${FTP_PASS}
 notifications:
