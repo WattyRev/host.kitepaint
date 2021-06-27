@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# Force non-www requests
+RewriteCond %{HTTP_HOST} ^www.kitepaint.com [NC]
+RewriteRule ^(.*)$ https://kitepaint.com/$1 [L,R=301]
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirect requests to the static proxy
+RewriteRule ^(.*)$ /index.php [L]
