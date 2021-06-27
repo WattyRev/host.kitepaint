@@ -22,4 +22,4 @@ function str_replace_first($from, $to, $content)
 
 	$baseUrl = $environment === 'production' ? 'https://static.kitepaint.com/' : 'https://static.beta.kitepaint.com/';
 
-	echo file_get_contents($baseUrl + $filePath);
+	echo file_get_contents($baseUrl . $filePath);
