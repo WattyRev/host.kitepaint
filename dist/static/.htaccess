@@ -9,4 +9,4 @@ RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Redirect requests to the static proxy
-RewriteRule ^(.*)$ /index.php [L]
+RewriteRule ^(.*)$ index.php [L]
